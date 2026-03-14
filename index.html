@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de paletas de colores interactivo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+    <h1>Colorfly Studio</h1>
+    <p>Generador de Paletas de Colores Interactivo</p>
+    </header>
+    <main>
+    <div class="controles">
+        <p>Selecciona el número de colores para tu paleta:</p>
+    <select id="cantidadcolores">
+        <option value="6">6 colores</option>
+        <option value="8">8 colores</option>
+        <option value="9">9 colores</option>
+    </select>
+    <button id="generarpaleta">Haz clic y Genera tu paleta de colores</button>
+    </div>
+    <h2>Tu Paleta de Colores:</h2>
+    <div id="paletacolores">
+    </div>
+    </main>
+    <footer>
+    <p>&copy; 2026 Colorfly Studio. Todos los derechos reservados.</p>
+    <p><small>Desarrollado por Sebastián Pérez</small></p>
+    </footer>
+    <script src="app.js"></script>
+</body>
+</html>
