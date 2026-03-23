@@ -1,0 +1,124 @@
+/* Reset básico */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Body */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  background-color: #f7f7f7;
+  color: #333;
+  padding: 20px;
+}
+
+/* main */
+main {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Header */
+header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+header h1 {
+  font-size: 28px;
+  margin-bottom: 5px;
+}
+
+header p {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Controles */
+.controles {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+select,
+button {
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+/* Botón */
+button {
+  background-color: #111;
+  color: white;
+  border: none;
+  transition: background 0.2s ease;
+}
+
+button:hover {
+  background-color: #333;
+  cursor: pointer;
+}
+
+/* Texto guía */
+main p {
+  font-size: 13px;
+  color: #777;
+  margin-top: 5px;
+}
+
+/* Paleta */
+#paletacolores {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/*Tarjeta de color */
+#paletacolores div {
+  padding: 35px;
+  border-radius: 12px;
+
+  color: white;
+  font-weight: 500;
+
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/*Hover */
+#paletacolores div:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+  cursor: pointer;
+}
+
+/* Texto HEX */
+#paletacolores div div:first-child {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/*Texto HSL */
+#paletacolores div div:last-child {
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+/* Footer */
+footer {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 12px;
+  color: #888;
+}

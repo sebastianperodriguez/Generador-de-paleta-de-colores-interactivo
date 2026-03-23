@@ -83,15 +83,14 @@ boton.addEventListener("click", function () {
             colorDiv.style.color = "White";
             colorDiv.textContent = `
             HEX: ${colorHex}
-            HSL: ${colorHsl}`
+            HSL: ${colorHsl}`;
 
-            //agregamos al html el texto para copiar al hacer click//
-         
+            //idea de formas aleatorias = fracasó// 
 
             //Opción para copiar el código HEX//
             colorDiv.addEventListener("click", function(){
                 navigator.clipboard.writeText(colorHex);
-                console.log("copiado:", colorHex);
+         console.log("copiado:", colorHex);
             })
 
             PaletaGenerada.appendChild(colorDiv);
