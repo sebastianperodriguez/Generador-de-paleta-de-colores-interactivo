@@ -8,6 +8,43 @@ const cantidadColores = document.getElementById("cantidadcolores");
 const boton = document.getElementById("generarpaleta");
 const PaletaGenerada = document.getElementById("paletacolores");
 
+//Funciones para rgb a hex//
+function rgbToHex(r, g, b) {
+  return "#" + [r, g, b]
+    .map(x => x.toString(16).padStart(2, "0"))
+    .join("")
+    .toUpperCase();
+}
+//Funcion para rgb a hsl//
+function rgbToHsl(r, g, b) {
+  r /= 255;
+  g /= 255;
+  b /= 255;
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  let h, s, l;
+  l = (max + min) / 2;
+  if (max === min) {
+    h = s = 0;
+  } else {
+    const d = max - min;
+    s = l > 0.5 
+      ? d / (2 - max - min) 
+      : d / (max + min);
+    switch (max) {
+      case r:
+        h = (g - b) / d + (g < b ? 6 : 0);
+        break;
+      case g:
+        h = (b - r) / d + 2;
+        break;
+      case b:
+        h = (r - g) / d + 4;
+        break;}
+    h /= 6;}
+  return `hsl(${Math.round(h * 360)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}%)`;
+}
+
 //crear escuchador al botón
 
 boton.addEventListener("click", function () {
@@ -21,7 +58,7 @@ boton.addEventListener("click", function () {
     PaletaGenerada.innerHTML = "";
     
     //generar colores aleatorios//
-    for (let i=0; i < cantidad; i++)
+    for (let i=0; i < cantidad; i++) { 
 
         //probamos que el bucle funciona//
         console.log("color numero", i);
@@ -36,9 +73,34 @@ boton.addEventListener("click", function () {
         // para que funcione deben ser estas otras comillas (``)//
 
         const color = `rgb(${r}, ${g}, ${b})`;
+        const colorHex = rgbToHex (r, g, b);
+        const colorHsl = rgbToHsl (r, g, b);
+        console.log("Color generado:", color);
+
+    //Creando div//
+        const colorDiv = document.createElement("div");
+            colorDiv.style.backgroundColor = color;
+            colorDiv.style.color = "White";
+            colorDiv.textContent = `
+            HEX: ${colorHex}
+            HSL: ${colorHsl}`
+
+            //agregamos al html el texto para copiar al hacer click//
+         
+
+            //Opción para copiar el código HEX//
+            colorDiv.addEventListener("click", function(){
+                navigator.clipboard.writeText(colorHex);
+                console.log("copiado:", colorHex);
+            })
+
+            PaletaGenerada.appendChild(colorDiv);
+            }
 
 
-  console.log("Color generado:", color);
   
 
+
 });
+
+
