@@ -7,6 +7,31 @@ const PaletaGenerada = document.getElementById("paletacolores");
 const tipoCodigo = document.getElementById("tipoCodigo");
 
 
+// Crear elemento para feedback únicamente desde js
+const feedback = document.createElement("div");
+feedback.id = "feedback-copiado";
+feedback.textContent = "¡Copiado!";
+feedback.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #111;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 10000;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.3s ease;
+    display: none;
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+`;
+document.body.appendChild(feedback);
+
 
 // Funciones para rgb a hex
 function rgbToHex(r, g, b) {
@@ -47,6 +72,7 @@ function rgbToHsl(r, g, b) {
   }
   return `hsl(${Math.round(h * 360)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}%)`;
 }
+
 
 // Función para mostrar feedback
 function mostrarFeedback() {
@@ -111,7 +137,7 @@ boton.addEventListener("click", function () {
             navigator.clipboard.writeText(codigoMostrado); 
             console.log("copiado:", codigoMostrado);
             
-            // ✅ MOSTRAR FEEDBACK VISUAL
+            // Mostrar feedback
             mostrarFeedback();
         });
 
