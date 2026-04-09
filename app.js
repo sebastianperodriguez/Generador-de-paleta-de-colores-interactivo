@@ -1,21 +1,22 @@
-
-//probar que el js está conectado//
 console.log("js conectado correctamente");
 
-//trer elementos desde el HTML
-
+// Traer elementos desde el HTML
 const cantidadColores = document.getElementById("cantidadcolores");
 const boton = document.getElementById("generarpaleta");
 const PaletaGenerada = document.getElementById("paletacolores");
+const tipoCodigo = document.getElementById("tipoCodigo");
 
-//Funciones para rgb a hex//
+
+
+// Funciones para rgb a hex
 function rgbToHex(r, g, b) {
   return "#" + [r, g, b]
     .map(x => x.toString(16).padStart(2, "0"))
     .join("")
     .toUpperCase();
 }
-//Funcion para rgb a hsl//
+
+// Función para rgb a hsl
 function rgbToHsl(r, g, b) {
   r /= 255;
   g /= 255;
@@ -40,66 +41,80 @@ function rgbToHsl(r, g, b) {
         break;
       case b:
         h = (r - g) / d + 4;
-        break;}
-    h /= 6;}
+        break;
+    }
+    h /= 6;
+  }
   return `hsl(${Math.round(h * 360)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}%)`;
 }
 
-//crear escuchador al botón
+// Función para mostrar feedback
+function mostrarFeedback() {
+    feedback.style.display = "block";
+    setTimeout(() => {
+        feedback.style.opacity = "1";
+        feedback.style.transform = "translateX(0)";
+    }, 10);
+    
+    // Ocultar después de 2 segundos
+    setTimeout(() => {
+        feedback.style.opacity = "0";
+        feedback.style.transform = "translateX(100%)";
+        setTimeout(() => {
+            feedback.style.display = "none";
+        }, 300);
+    }, 2000);
+}
 
+// Crear escuchador al botón
 boton.addEventListener("click", function () {
     
-    //const cantidad = (cantidadColores.value); aquí devuelve un string por eso usamos parseInt
+    // const cantidad = (cantidadColores.value); aquí devuelve un string por eso usamos parseInt
     // para que devuelva un number//
     const cantidad = parseInt(cantidadColores.value);
     console.log(cantidad);
     
-    //limpiar la paleta antes de generar una nueva//
+    // limpiar la paleta antes de generar una nueva//
     PaletaGenerada.innerHTML = "";
     
-    //generar colores aleatorios//
-    for (let i=0; i < cantidad; i++) { 
+    // generar colores aleatorios//
+    for (let i = 0; i < cantidad; i++) { 
 
-        //probamos que el bucle funciona//
+        // probamos que el bucle funciona//
         console.log("color numero", i);
 
-         // Generar valores aleatorios para el color
+        // Generar valores aleatorios para el color
         const r = Math.floor(Math.random() * 255);
         const g = Math.floor(Math.random() * 255);
         const b = Math.floor(Math.random() * 255);
 
         // Crear el color RGB
-        //const color = "rgb(${r}, ${g}, ${b})";//esta línea no funciona porque las comillas son simples, 
+        // const color = "rgb(${r}, ${g}, ${b})";//esta línea no funciona porque las comillas son simples, 
         // para que funcione deben ser estas otras comillas (``)//
-
         const color = `rgb(${r}, ${g}, ${b})`;
-        const colorHex = rgbToHex (r, g, b);
-        const colorHsl = rgbToHsl (r, g, b);
+        const colorHex = rgbToHex(r, g, b);
+        const colorHsl = rgbToHsl(r, g, b);
         console.log("Color generado:", color);
 
-    //Creando div//
+        // Seleccionar el código a mostrar según el tipo seleccionado
+        const codigoMostrado = tipoCodigo.value === "hex" ? colorHex : colorHsl;
+        
+        // Crear el colorDiv
         const colorDiv = document.createElement("div");
-            colorDiv.style.backgroundColor = color;
-            colorDiv.style.color = "White";
-            colorDiv.textContent = `
-            HEX: ${colorHex}
-            HSL: ${colorHsl}`;
+        
+        colorDiv.style.backgroundColor = color;
+        colorDiv.style.color = "White";
+        colorDiv.textContent = `${tipoCodigo.value.toUpperCase()}: ${codigoMostrado}`;
 
-            //idea de formas aleatorias = fracasó// 
+        // Opción para copiar el código del tipo seleccionado + FEEDBACK
+        colorDiv.addEventListener("click", function(){
+            navigator.clipboard.writeText(codigoMostrado); 
+            console.log("copiado:", codigoMostrado);
+            
+            // ✅ MOSTRAR FEEDBACK VISUAL
+            mostrarFeedback();
+        });
 
-            //Opción para copiar el código HEX//
-            colorDiv.addEventListener("click", function(){
-                navigator.clipboard.writeText(colorHex);
-         console.log("copiado:", colorHex);
-            })
-
-            PaletaGenerada.appendChild(colorDiv);
-            }
-
-
-  
-
-
+        PaletaGenerada.appendChild(colorDiv);
+    }
 });
-
-
